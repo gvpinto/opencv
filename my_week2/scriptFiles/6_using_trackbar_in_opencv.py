@@ -10,18 +10,23 @@ trackbarValue = "Scale"
 trackbarType = "Type: \n 0: Scale Up \n 1: Scale Down"
 
 # load an image
-im = cv2.imread("../data/images/truth.png")
+im = cv2.imread("./data/images/truth.png")
 
 # Create a window to display results
 cv2.namedWindow(windowName, cv2.WINDOW_AUTOSIZE)
 
 # Callback functions
 def scaleImage(*args):
+    print("Scale Factor: ", args)
     global scaleFactor
     global scaleType
     
     # Get the scale factor from the trackbar 
-    scaleFactor = 1+ args[0]/100.0
+    if scaleType == 0:
+        scaleFactor = 1 + args[0]/100.0
+    else:        
+        scaleFactor = 1 - args[0]/100.0
+    # scaleFactor = 1+ args[0]/100.0
     
     # Perform check if scaleFactor is zero
     if scaleFactor == 0:
@@ -34,6 +39,7 @@ def scaleImage(*args):
 
 # Callback functions
 def scaleTypeImage(*args):
+    print("Scale Type: ", args)
     global scaleType
     global scaleFactor
     scaleType = args[0]
